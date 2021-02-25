@@ -30,29 +30,40 @@
       <%= f.label :備考 %><br>
       <%= f.text_area :content %>
     </div>
-    <% n = 1 %>
-    <%= f.fields_for :stations do |station| %>
-    <h4>最寄り駅<%= n %></h4>
-    <% n = n + 1 %>
-      <div class="title">
-        <%= station.label :路線名 %><br>
-        <%= station.text_field :route_name %>
-      </div>
-      <div class="title">
-        <%= station.label :駅名 %><br>
-        <%= station.text_field :station_name %>
-      </div>
-      <div class="title">
-        <%= station.label :徒歩分数 %><br>
-        <%= station.text_field :walk %>分
-      </div>
-      <% if @rent.persisted? %>
-        <%= station.check_box :_destroy %>
-        <%= station.label :_destroy, "削除" %><br />
-      <% end %>
+    <% @emp = []%> 
+    <% @rent.stations.each do |i| %>
+      <% @emp << i[:walk].present?||i[:route_name].present?||i[:station_name].present? %>
     <% end %>
-    <div class="submit">
+    <%@emp.pop(1) %>
+    <%@emp << true %>
+    <% e = 0%> 
+    <% n = 1 %>
+      <%= f.fields_for :stations do |station| %>
+        <% if @emp[e] %>
+          <h4>最寄り駅<%= n %></h4>
+          <% n = n + 1 %>
+          <div class="title">
+            <%= station.label :路線名 %><br>
+            <%= station.text_field :route_name %>
+          </div>
+          <div class="title">
+            <%= station.label :駅名 %><br>
+            <%= station.text_field :station_name %>
+          </div>
+          <div class="title">
+            <%= station.label :徒歩分数 %><br>
+            <%= station.text_field :walk %>
+          </div>
+          <% if @rent.persisted? %>
+            <%= station.check_box :_destroy %>
+            <%= station.label :_destroy, "削除" %><br />
+          <% end %>   
+          <% e = e + 1%> 
+        <% else %> 
+          <% e = e + 1%>
+        <% end %>   
+      <% end %>
+      <div class="submit">
       <%= f.submit %>
-    </div>
-  <% end %>
+    <% end %>
 </div>

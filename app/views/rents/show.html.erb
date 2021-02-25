@@ -19,24 +19,26 @@
     </tbody>
   </table>
   <hr>
-  <% n = 1%>
+  <% n = 1 %>
   <% @station.each do |station| %>
-  <h4>最寄駅<%= n %></h4>
-  <% n = n + 1%>
-   <table>
-    <tbody>
-      <tr>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;路線名: &nbsp;<%= station.route_name%></td>
-      </tr>
-      <tr>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;駅名:&nbsp;<%=station.station_name%></td>
-      </tr>
-      <tr>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;徒歩分数:&nbsp;<%=station.walk%>分</td>
-      </tr>
-    </tbody>
-  </table>
-  <% end %>
+    <%if station[:walk].present?||station[:route_name].present?||station[:station_name].present? then%>
+    <h4>最寄駅<%= n %></h4>
+    <% n = n + 1%>
+    <table>
+      <tbody>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;路線名: &nbsp;<%= station.route_name%></td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;駅名:&nbsp;<%=station.station_name%></td>
+        </tr>
+        <tr>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;徒歩分数:&nbsp;<%=station.walk%>分</td>
+        </tr>
+      </tbody>
+    </table>
+    <% end %> 
+  <% end %> 
 <table>
   <tr>
     <td><%= link_to "編集", edit_rent_path(@rent.id) %></td>
