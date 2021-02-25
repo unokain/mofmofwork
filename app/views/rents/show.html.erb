@@ -1,0 +1,46 @@
+<h1>観覧</h1>   
+  <table>
+    <tbody>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;物件名: <%= @rent.name %></td>
+      </tr>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;賃料: <%= @rent.price %></td>
+      </tr>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;住所: <%= @rent.address %></td>
+      </tr>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;築年数: <%= @rent.age %></td>
+      </tr>
+      <tr>
+       <td>&nbsp;&nbsp;&nbsp;&nbsp;備考: <%= @rent.content %></td>
+      </tr>
+    </tbody>
+  </table>
+  <hr>
+  <% n = 1%>
+  <% @station.each do |station| %>
+  <h4>最寄駅<%= n %></h4>
+  <% n = n + 1%>
+   <table>
+    <tbody>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;路線名:<%= station.route_name%></td>
+      </tr>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;駅名:<%=station.station_name%></td>
+      </tr>
+      <tr>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;徒歩分数:<%=station.walk%>分</td>
+      </tr>
+    </tbody>
+  </table>
+  <% end %>
+<table>
+  <tr>
+    <td><%= link_to "編集", edit_rent_path(@rent.id) %></td>
+    <td>|</td>
+    <td><%= link_to "戻る", rents_path %></td>
+  </tr>
+</table>

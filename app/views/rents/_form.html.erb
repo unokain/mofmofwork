@@ -1,0 +1,58 @@
+<div class="list">
+  <%= form_for @rent do |f| %>
+    <% if @rent.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= @rent.errors.count %>件のエラーがあります。</h2>
+        <ul>
+          <% @rent.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="title">
+      <%= f.label :物件名 %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="title">
+      <%= f.label :賃料 %><br>
+      <%= f.text_field :price %>円
+    </div>
+    <div class="title">
+      <%= f.label :住所 %><br>
+      <%= f.text_field :address %>
+    </div>
+    <div class="title">
+      <%= f.label :築年数 %><br>
+      <%= f.text_field :age %>年
+    </div>
+    <div class="title">
+      <%= f.label :備考 %><br>
+      <%= f.text_area :content %>
+    </div>
+    <% n = 1 %>
+    <%= f.fields_for :stations do |station| %>
+    <h4>最寄り駅<%= n %></h4>
+    <% n = n + 1 %>
+      <div class="title">
+        <%= station.label :路線名 %><br>
+        <%= station.text_field :route_name %>
+      </div>
+      <div class="title">
+        <%= station.label :駅名 %><br>
+        <%= station.text_field :station_name %>
+      </div>
+      <div class="title">
+        <%= station.label :徒歩分数 %><br>
+        <%= station.text_field :walk %>分
+      </div>
+      <% if @rent.persisted? %>
+        <%= station.check_box :_destroy %>
+        <%= station.label :_destroy, "削除" %><br />
+      <% end %>
+    <% end %>
+    <div class="submit">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

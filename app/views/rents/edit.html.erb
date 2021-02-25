@@ -1,0 +1,9 @@
+<h2>編集する</h2>
+  <%= render 'form' %>
+<table>
+  <tr>
+    <td><%= link_to "観覧", rent_path(@rent.id) %></td>
+    <td>|</td>
+    <td><%= link_to "戻る", rents_path %></td>
+  </tr>
+</table>
